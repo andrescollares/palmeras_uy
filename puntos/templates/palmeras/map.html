@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Palmeras Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="{% url 'admin:index' %}"
+      target="_blank"
+      style="
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: lightpink;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: sans-serif;
+        font-size: 14px;
+        z-index: 1000;
+        text-decoration: none;
+        color: #333;
+      "
+      >Administración</a
+    >
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      const map = L.map("map").setView([-34.9, -56.1], 12);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
+        map,
+      );
+
+      fetch("{% url 'palmeras_geojson' %}")
+        .then((res) => res.json())
+        .then((data) => {
+          L.geoJSON(data, {
+            onEachFeature: (feature, layer) => {
+              const props = feature.properties;
+              layer.bindPopup(
+                `<strong>${props.codigo}</strong><br>${props.zona || ""}<br>${props.especie || ""}`,
+              );
+            },
+          }).addTo(map);
+        });
+    </script>
+  </body>
+</html>

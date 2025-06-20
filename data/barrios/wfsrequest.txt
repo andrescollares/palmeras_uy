@@ -1,0 +1,1 @@
+https://mapas.ide.uy/geoserver-vectorial/ws_capa_base/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ws_capa_base%3Abarrios_montevideo&maxFeatures=50&outputFormat=SHAPE-ZIP

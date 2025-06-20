@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    ports:
+      - "5431:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: palmeras_uy_user
+      POSTGRES_PASSWORD: palmeras_uy_password
+      POSTGRES_DB: palmeras_uy_db
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - fish_history:/root/.local/share/fish
+    env_file: .env
+
+volumes:
+  db_data:
+  fish_history:

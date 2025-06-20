@@ -1,0 +1,8 @@
+{% extends "admin/base_site.html" %} {% block content %}
+<h1>Subir CSV de Palmeras</h1>
+<form method="post" enctype="multipart/form-data" style="margin-top: 20px">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="default">Subir</button>
+  <a href="../" class="button" style="margin-left: 10px">Cancel</a>
+</form>
+{% endblock %}
